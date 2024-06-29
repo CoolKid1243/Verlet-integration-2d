@@ -19,7 +19,6 @@ void PlayButton::handleEvent(const sf::Event& event, const sf::RenderWindow& win
         sf::Vector2f worldMousePos = window.mapPixelToCoords(mousePos);
 
         if (playButton.getGlobalBounds().contains(worldMousePos)) {
-            // Toggle button state
             playClicked = !playClicked;
 
             if (playClicked) {

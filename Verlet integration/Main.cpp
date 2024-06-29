@@ -10,7 +10,7 @@
 #include "LinkButton.h"
 
 
-// From dev to dev log how many days have been waisted on this system here: 5
+// From dev to dev, log how many days have been waisted on this system here: 5
 
 
 std::vector<Circle> circles;
@@ -54,16 +54,12 @@ int main() {
                 }
             }
 
-            // Handle SpawnButton events
             spawnButton.handleEvent(event, window);
 
-            // Handle ImmobleButton events
             immobleButton.handleEvent(event, window, circles);
 
-            // Handle playButton events
             playButton.handleEvent(event, window, circles);
 
-            // Handle LinkButton events
             linkButton.handleEvent(event, window, circles);
 
             // Spawn a new circle when I click

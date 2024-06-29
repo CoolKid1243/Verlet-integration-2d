@@ -19,7 +19,6 @@ void LinkButton::handleEvent(const sf::Event& event, const sf::RenderWindow& win
         sf::Vector2f worldMousePos = window.mapPixelToCoords(mousePos);
 
         if (linkButton.getGlobalBounds().contains(worldMousePos)) {
-            // Toggle button state
             linkClicked = !linkClicked;
 
             if (linkClicked) {
@@ -34,7 +33,6 @@ void LinkButton::handleEvent(const sf::Event& event, const sf::RenderWindow& win
             linkButton.setFillColor(linkColor);
         }
         else {
-            // Only allow circle selection if linkButton is enabled
             if (linkClicked) {
                 for (auto& circle : circles) {
                     if (circle.getGlobalBounds().contains(worldMousePos)) {
@@ -42,7 +40,6 @@ void LinkButton::handleEvent(const sf::Event& event, const sf::RenderWindow& win
                     }
                 }
 
-                // Check the number of selected circles
                 int selectedCount = 0;
                 for (auto& circle : circles) {
                     if (circle.isSelected()) {
@@ -50,7 +47,6 @@ void LinkButton::handleEvent(const sf::Event& event, const sf::RenderWindow& win
                     }
                 }
 
-                // If exactly two circles are selected, change their color to pink and disable the button
                 if (selectedCount == 2) {
                     for (auto& circle : circles) {
                         if (circle.isSelected()) {

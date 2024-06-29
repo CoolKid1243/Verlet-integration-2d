@@ -19,7 +19,6 @@ void SpawnButton::handleEvent(const sf::Event& event, const sf::RenderWindow& wi
         sf::Vector2f worldMousePos = window.mapPixelToCoords(mousePos);
 
         if (spawnButton.getGlobalBounds().contains(worldMousePos)) {
-            // Toggle button state
             spawnClicked = !spawnClicked;
 
             if (spawnClicked) {

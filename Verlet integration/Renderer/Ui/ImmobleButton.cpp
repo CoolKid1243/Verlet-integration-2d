@@ -19,7 +19,6 @@ void ImmobleButton::handleEvent(const sf::Event& event, const sf::RenderWindow& 
         sf::Vector2f worldMousePos = window.mapPixelToCoords(mousePos);
 
         if (immobleButton.getGlobalBounds().contains(worldMousePos)) {
-            // Toggle button state
             immobleClicked = !immobleClicked;
 
             if (immobleClicked) {

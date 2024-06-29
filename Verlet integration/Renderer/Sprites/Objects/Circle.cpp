@@ -18,7 +18,6 @@ Circle::Circle(float x, float y, bool immobleState) :
         useTexture = false;
     }
 
-    // Set initial position and color
     circle.setPosition(physics.getPosition());
     if (immoble) {
         circleColor = sf::Color::Yellow;
@@ -36,7 +35,6 @@ void Circle::update(float deltaTime, bool paused, std::vector<Circle>& circles) 
         physics.update(deltaTime, getPhysicsPointers(circles));
     }
 
-    // Update pos on screen
     circle.setPosition(physics.getPosition() - sf::Vector2f(circle.getRadius(), circle.getRadius()));
 
     if (immoble) {
@@ -58,7 +56,6 @@ void Circle::draw(sf::RenderWindow& window) {
 
 void Circle::setImmoble(bool immoble) {
     this->immoble = immoble;
-    // Update color
     if (immoble) {
         circleColor = sf::Color::Yellow;
     }
