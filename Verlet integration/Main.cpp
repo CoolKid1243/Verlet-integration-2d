@@ -4,8 +4,8 @@
 // From dev to dev, log how many days have been waisted on this system here: 5
 
 int main() {
-    App Application = App();
-    Application.run();
+    std::unique_ptr<App> Application = std::make_unique<App>();
+    Application->run();
    
     return 0;
 }

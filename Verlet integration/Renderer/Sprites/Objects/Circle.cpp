@@ -11,11 +11,13 @@ Circle::Circle(float x, float y, bool immobleState) :
     useTexture(false),
     selected(false) {
 
-    std::string imagePath = "D:/All Game Stuff And Softwhere/VS Games/Verlet integration 2d/Verlet integration/Renderer/Sprites/Textures/AwesomeFace.png";
+    if (useTexture) {
+        std::string imagePath = "D:/All Game Stuff And Softwhere/VS Games/Verlet integration 2d/Verlet integration/Renderer/Sprites/Textures/AwesomeFace.png";
 
-    if (!texture.loadFromFile(imagePath)) {
-        std::cerr << "Error loading png" << std::endl;
-        useTexture = false;
+        if (!texture.loadFromFile(imagePath)) {
+            std::cerr << "Error loading png" << std::endl;
+            useTexture = false;
+        }
     }
 
     circle.setPosition(physics.getPosition());

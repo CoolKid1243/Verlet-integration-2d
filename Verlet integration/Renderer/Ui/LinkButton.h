@@ -1,4 +1,5 @@
 #pragma once
+
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "Circle.h"
@@ -9,7 +10,6 @@ public:
     void draw(sf::RenderWindow& window);
     void handleEvent(const sf::Event& event, const sf::RenderWindow& window, std::vector<Circle>& circles);
     bool isButtonClicked() const;
-    void setButtonClicked(bool clicked);
     sf::FloatRect getGlobalBounds() const;
 
 private:
