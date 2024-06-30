@@ -1,5 +1,4 @@
-#ifndef BACKROUND_H
-#define BACKROUND_H
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -15,5 +14,3 @@ private:
     sf::Texture texture;
     bool useTexture;
 };
-
-#endif // BACKROUND_H

@@ -1,7 +1,5 @@
 #include "Application.h"
 
-
-
 void App::run() {
     while (window.isOpen()) {
         

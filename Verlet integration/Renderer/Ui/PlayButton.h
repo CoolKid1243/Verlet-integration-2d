@@ -9,7 +9,6 @@ public:
     void draw(sf::RenderWindow& window);
     void handleEvent(const sf::Event& event, const sf::RenderWindow& window, std::vector<Circle>& circles);
     bool isButtonClicked() const;
-    void setButtonClicked(bool clicked);
     sf::FloatRect getGlobalBounds() const;
     bool playClicked;
 

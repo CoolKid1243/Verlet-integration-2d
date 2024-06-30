@@ -1,6 +1,6 @@
+#pragma once
+
 #include <SFML/Graphics.hpp>
-#include <iostream>
-#include <vector>
 #include "Camera.h"
 #include "Circle.h"
 #include "Backround.h"

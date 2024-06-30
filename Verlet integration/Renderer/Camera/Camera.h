@@ -1,5 +1,4 @@
-#ifndef CAMERA_H
-#define CAMERA_H
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -25,5 +24,3 @@ private:
     void zoomIn();
     void zoomOut();
 };
-
-#endif // CAMERA_H
