@@ -37,6 +37,19 @@ void Camera::setCenter(sf::Vector2f center) {
     cameraCenter = center;
 }
 
+void Camera::handleZoom(sf::Event event) {
+    if (event.type == sf::Event::MouseWheelScrolled) {
+        if (event.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel) {
+            if (event.mouseWheelScroll.delta > 0) {
+                zoomIn(); 
+            }
+            else if (event.mouseWheelScroll.delta < 0) {
+                zoomOut(); 
+            }
+        }
+    }
+}
+
 void Camera::zoomIn() {
     zoomLevel /= 1.9f;
 }

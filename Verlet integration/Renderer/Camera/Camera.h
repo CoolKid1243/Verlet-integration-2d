@@ -9,8 +9,7 @@ public:
 
     void update(sf::RenderWindow& window);
     void setCenter(sf::Vector2f center);
-    void zoomIn();
-    void zoomOut();
+    void handleZoom(sf::Event event);
     void lockOntoCircle(bool lock);
     bool isLockedOntoCircle() const;
     sf::Vector2f getCenter() const;
@@ -22,6 +21,9 @@ private:
     sf::Vector2f cameraCenter;
     float zoomLevel;
     bool lockedOntoCircle;
+
+    void zoomIn();
+    void zoomOut();
 };
 
 #endif // CAMERA_H
