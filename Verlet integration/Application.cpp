@@ -1,8 +1,7 @@
 #include "Application.h"
 
-
-
 void App::run() {
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Verlet integration");
     while (window.isOpen()) {
         
         
