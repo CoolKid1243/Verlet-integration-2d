@@ -1,9 +1,7 @@
 #include "Application.h"
 
 void App::run() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Verlet integration");
     while (window.isOpen()) {
-        
         
         handleEvents();
 
@@ -26,7 +24,7 @@ void App::update(float deltaTime, sf::RenderWindow& window) {
         circle.update(deltaTime, playButton.playClicked, circles);
     }
 
-    backround.update(deltaTime);
+    background.update(deltaTime);
 
     camera.update(window);
 }
@@ -55,7 +53,7 @@ void App::handleEvents() {
 }
 
 void App::draw() {
-    backround.draw(window);
+    background.draw(window);
 
     for (auto& circle : circles) {
         circle.draw(window);

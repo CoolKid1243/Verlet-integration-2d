@@ -2,23 +2,23 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-Backround::Backround() :
+Background::Background() :
     background(sf::Vector2f(800.f, 600.f)),
     useTexture(false) {
     background.setFillColor(sf::Color(128, 128, 128));
 }
 
-Backround::Backround(float x, float y) :
+Background::Background(float x, float y) :
     background(sf::Vector2f(x, y)),
     useTexture(false) {
     background.setFillColor(sf::Color(128, 128, 128));
 }
 
-void Backround::update(float deltaTime) {
+void Background::update(float deltaTime) {
     // Nothing Here
 }
 
-void Backround::draw(sf::RenderWindow& window) {
+void Background::draw(sf::RenderWindow& window) {
     if (useTexture) {
         background.setTexture(&texture);
     }

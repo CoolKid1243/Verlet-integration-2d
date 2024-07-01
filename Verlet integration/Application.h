@@ -13,7 +13,7 @@ class App {
 public:
 	std::vector<Circle> circles;
 	Camera camera;
-	Backround backround(800.f, 600.f);
+	Background background;
 	SpawnButton spawnButton;
 	ImmobleButton immobleButton;
 	PlayButton playButton;
@@ -21,7 +21,7 @@ public:
 	sf::RenderWindow window;
 	sf::Clock clock;
 
-	App() : window(sf::VideoMode(800, 600), "Verlet integration"), backround(800.f, 600.f) {}
+	App() : window(sf::VideoMode(800, 600), "Verlet integration"), background(800.f, 600.f) {}
 	void handleEvents();
 	void draw();
 	void viewTransformations();

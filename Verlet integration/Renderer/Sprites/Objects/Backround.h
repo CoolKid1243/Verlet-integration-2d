@@ -2,10 +2,10 @@
 
 #include <SFML/Graphics.hpp>
 
-class Backround {
+class Background {
 public:
-    Backround();
-    Backround(float x, float y);
+    Background();
+    Background(float x, float y);
     void update(float deltaTime);
     void draw(sf::RenderWindow& window);
 
