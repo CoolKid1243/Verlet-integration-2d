@@ -12,6 +12,7 @@ public:
     void applyVelocity(float velocity, float deltaTime);
     void applyFriction(float friction);
     void springForce(float deltaTime, const std::vector<VerletPhysics*>& circles);
+    void addSpring(VerletPhysics* other, float restLength, float stiffness); // New method
 
     sf::Vector2f getPosition() const;
     void setPosition(const sf::Vector2f& newPosition);
@@ -22,9 +23,13 @@ private:
     sf::Vector2f oldPosition;
     sf::Vector2f velocity;
     float radius;
-    float F;
-    float K;
-    float X;
+
+    struct Spring {
+        VerletPhysics* other;
+        float restLength;
+        float stiffness;
+    };
+    std::vector<Spring> springs; // New member to store springs
 
     void integrate();
     void handleCollision(const std::vector<VerletPhysics*>& circles);

@@ -12,6 +12,20 @@ VerletPhysics::VerletPhysics(float posX, float posY, float radius) :
 void VerletPhysics::update(float deltaTime, const std::vector<VerletPhysics*>& circles) {
     integrate();
     handleCollision(circles);
+
+    for (auto& spring : springs) {
+        sf::Vector2f direction = spring.other->position - position;
+        float currentLength = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+        float displacement = currentLength - spring.restLength;
+
+        if (currentLength != 0) {
+            direction /= currentLength;
+        }
+
+        sf::Vector2f force = spring.stiffness * displacement * direction;
+        position += force * deltaTime;
+        spring.other->position -= force * deltaTime;
+    }
 }
 
 void VerletPhysics::applyGravity(float gravity, float deltaTime) {
@@ -19,16 +33,30 @@ void VerletPhysics::applyGravity(float gravity, float deltaTime) {
 }
 
 void VerletPhysics::applyVelocity(float velocity, float deltaTime) {
-    this->velocity.x += velocity * deltaTime;
+    //position += velocity * deltaTime;
 }
 
 void VerletPhysics::applyFriction(float friction) {
-    this->velocity.x *= friction;
-    this->velocity.y *= friction;
+    velocity *= friction;
 }
 
-void springForce(float deltaTime, const std::vector<VerletPhysics*>& circles) {
-    
+void VerletPhysics::springForce(float deltaTime, const std::vector<VerletPhysics*>& circles) {
+    for (auto& circle : circles) {
+        sf::Vector2f direction = circle->position - position;
+        float currentLength = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+        float displacement = currentLength - radius;
+
+        if (currentLength != 0) {
+            direction /= currentLength;
+        }
+
+        sf::Vector2f force = displacement * direction;
+        position += force * deltaTime;
+    }
+}
+
+void VerletPhysics::addSpring(VerletPhysics* other, float restLength, float stiffness) {
+    springs.push_back({ other, restLength, stiffness });
 }
 
 sf::Vector2f VerletPhysics::getPosition() const {
@@ -37,7 +65,6 @@ sf::Vector2f VerletPhysics::getPosition() const {
 
 void VerletPhysics::setPosition(const sf::Vector2f& newPosition) {
     position = newPosition;
-    oldPosition = newPosition;
 }
 
 float VerletPhysics::getRadius() const {
@@ -45,9 +72,9 @@ float VerletPhysics::getRadius() const {
 }
 
 void VerletPhysics::integrate() {
-    sf::Vector2f temp = position;
-    position += (position - oldPosition) + velocity;
-    oldPosition = temp;
+    sf::Vector2f newPosition = position + (position - oldPosition) + velocity;
+    oldPosition = position;
+    position = newPosition;
 }
 
 void VerletPhysics::handleCollision(const std::vector<VerletPhysics*>& circles) {
@@ -72,34 +99,20 @@ void VerletPhysics::handleCollision(const std::vector<VerletPhysics*>& circles) 
         velocity.y = -velocity.y * restitution;
     }
 
-    // Circle collisions
-    for (auto& other : circles) {
-        if (other == this) continue;
+    for (auto& circle : circles) {
+        if (circle == this) continue;
 
-        float dx = position.x - other->position.x;
-        float dy = position.y - other->position.y;
-        float distanceSquared = dx * dx + dy * dy;
-        float radiusSum = radius + other->radius;
+        sf::Vector2f direction = position - circle->position;
+        float distance = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+        float minDist = radius + circle->radius;
 
-        if (distanceSquared < radiusSum * radiusSum) {
-            float distance = std::sqrt(distanceSquared);
-            sf::Vector2f normal = (position - other->position) / distance;
-            float overlap = radiusSum - distance;
-
-            position += normal * (overlap / 2.0f);
-            other->position -= normal * (overlap / 2.0f);
-
-            sf::Vector2f relativeVelocity = velocity - other->velocity;
-            float velocityAlongNormal = relativeVelocity.x * normal.x + relativeVelocity.y * normal.y;
-
-            if (velocityAlongNormal < 0) {
-                float restitution = 0.8f;
-                float impulse = (1 + restitution) * velocityAlongNormal;
-
-                sf::Vector2f impulseVector = impulse * normal;
-                velocity -= impulseVector * 0.5f;
-                other->velocity += impulseVector * 0.5f;
+        if (distance < minDist) {
+            if (distance != 0) {
+                direction /= distance;
             }
+            float displacement = minDist - distance;
+            position += direction * displacement * 0.5f;
+            circle->position -= direction * displacement * 0.5f;
         }
     }
 }

@@ -1,8 +1,8 @@
 #include "Application.h"
+#include "Circle.h"
 
 void App::run() {
     while (window.isOpen()) {
-        
         handleEvents();
 
         float deltaTime = clock.restart().asSeconds();
@@ -27,6 +27,9 @@ void App::update(float deltaTime, sf::RenderWindow& window) {
     background.update(deltaTime);
 
     camera.update(window);
+
+    // Check and apply spring force between selected circles
+    Circle::createSpringForceBetweenSelectedCircles(circles);
 }
 
 void App::handleEvents() {
@@ -79,7 +82,10 @@ void App::spawnCircleAtMouse() {
     sf::Vector2i mousePos = sf::Mouse::getPosition(window);
     sf::Vector2f worldMousePos = window.mapPixelToCoords(mousePos);
 
-    if (!spawnButton.getGlobalBounds().contains(worldMousePos) && !playButton.getGlobalBounds().contains(worldMousePos) && !immobleButton.getGlobalBounds().contains(worldMousePos) && !linkButton.getGlobalBounds().contains(worldMousePos)) {
+    if (!spawnButton.getGlobalBounds().contains(worldMousePos) &&
+        !playButton.getGlobalBounds().contains(worldMousePos) &&
+        !immobleButton.getGlobalBounds().contains(worldMousePos) &&
+        !linkButton.getGlobalBounds().contains(worldMousePos)) {
         circles.emplace_back(worldMousePos.x, worldMousePos.y, immobleButton.isButtonClicked());
     }
 }

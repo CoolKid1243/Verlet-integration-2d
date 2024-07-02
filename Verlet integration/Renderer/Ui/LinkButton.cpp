@@ -51,9 +51,17 @@ void LinkButton::handleEvent(const sf::Event& event, const sf::RenderWindow& win
                     for (auto& circle : circles) {
                         if (circle.isSelected()) {
                             circle.setColor(sf::Color::Green);
+                        }
+                    }
+                    Circle::createSpringForceBetweenSelectedCircles(circles);
+
+                    // Unselect the circles after linking them
+                    for (auto& circle : circles) {
+                        if (circle.isSelected()) {
                             circle.toggleSelection();
                         }
                     }
+
                     linkClicked = false;
                     linkColor = sf::Color::White;
                     linkButton.setFillColor(linkColor);

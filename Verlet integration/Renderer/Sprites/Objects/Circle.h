@@ -16,9 +16,13 @@ public:
     void setColor(const sf::Color& color);
     sf::FloatRect getGlobalBounds() const;
 
+    static std::vector<Circle*> getSelectedCircles();
+    static void createSpringForceBetweenSelectedCircles(std::vector<Circle>& circles);
+
+    VerletPhysics physics;
+
 private:
     sf::CircleShape circle;
-    VerletPhysics physics;
     sf::Color circleColor;
     sf::Texture texture;
     bool immoble;
@@ -28,4 +32,5 @@ private:
     bool selected;
 
     std::vector<VerletPhysics*> getPhysicsPointers(std::vector<Circle>& circles);
+    static std::vector<Circle*> selectedCircles;
 };
